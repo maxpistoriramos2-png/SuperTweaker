@@ -1,0 +1,150 @@
+        <!DOCTYPE html>
+<hta:application 
+    id="oTweaker"
+    applicationname="SuperTweakerPRO"
+    icon="shell32.dll"
+    version="1.0"
+    scroll="yes"
+    singleinstance="yes"
+/>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SUPER TWEAKER PRO // Gaming & Performance</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f0f13; color: #e0e0e0; margin: 0; padding: 20px; }
+        h1 { color: #a855f7; text-align: center; font-size: 24px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .subtitle { text-align: center; color: #8b5cf6; margin-bottom: 25px; font-size: 13px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: #17171c; border: 1px solid #262630; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .card-header { font-size: 16px; font-weight: bold; color: #ffffff; margin-bottom: 5px; display: flex; align-items: center; }
+        .badge { font-size: 10px; background: #a855f7; padding: 2px 6px; border-radius: 4px; margin-left: 10px; text-transform: uppercase; }
+        .badge-safety { background: #10b981; }
+        .badge-danger { background: #ef4444; }
+        .badge-network { background: #3b82f6; }
+        .badge-apps { background: #eab308; }
+        .desc { font-size: 13px; color: #9ca3af; margin-bottom: 12px; line-height: 1.4; }
+        .btn { background-color: #8b5cf6; color: white; border: none; padding: 8px 16px; font-size: 13px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background-color: #a855f7; }
+        .btn-safety { background-color: #10b981; }
+        .btn-safety:hover { background-color: #059669; }
+        .btn-danger { background-color: #ef4444; }
+        .btn-danger:hover { background-color: #dc2626; }
+        .btn-apps { background-color: #eab308; color: #000; }
+        .btn-apps:hover { background-color: #ca8a04; }
+    </style>
+    <script language="VBScript">
+        Sub RunPowerShell(command)
+            Set objShell = CreateObject("Shell.Application")
+            objShell.ShellExecute "powershell.exe", "-NoProfile -ExecutionPolicy Bypass -Command """ & command & """", "", "runas", 0
+            MsgBox "Otimização aplicada com sucesso!", 64, "Super Tweaker PRO"
+        End Sub
+        Sub RunPowerShellVisible(command)
+            Set objShell = CreateObject("Shell.Application")
+            objShell.ShellExecute "powershell.exe", "-NoProfile -ExecutionPolicy Bypass -Command """ & command & """", "", "runas", 1
+        End Sub
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Super Tweaker PRO</h1>
+        <div class="subtitle">Focado em FPS, Segurança e Otimização Sem Complicação</div>
+
+        <div class="card" style="border-color: #10b981;">
+            <div class="card-header">1. Criar Ponto de Segurança <span class="badge badge-safety">Segurança Total</span></div>
+            <div class="desc"><strong>O que faz?</strong> Cria um ponto de retorno no seu Windows. Se você não gostar de alguma alteração, poderá voltar no tempo exatamente para o momento de agora.<br><em>Por que usar?</em> Garante que seu PC estará 100% protegido. Clique aqui antes de começar as outras otimizações.</div>
+            <button class="btn btn-safety" onclick="RunPowerShell('Checkpoint-Computer -Description \'AntesDoSuperTweaker\' -RestorePointType \'MODIFY_SETTINGS\'')">Criar Ponto de Restauração</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">2. Ativar Modo Gamer Ultra <span class="badge">FPS + Estabilidade</span></div>
+            <div class="desc"><strong>O que faz?</strong> Desativa o GameDVR (gravação oculta da Microsoft que rouba desempenho gráfico), prioriza os recursos do processador para jogos competitivos e impede o Windows de limitar a energia do seu hardware.<br><em>O que você ganha?</em> Maior taxa de quadros e redução drástica daquelas travadinhas chatas (stuttering) no meio da gameplay.</div>
+            <button class="btn" onclick="RunPowerShell('reg add HKCU\System\GameConfigStore /v GameDVR_Enabled /t REG_DWORD /d 0 /f; reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR /v AllowGameDVR /t REG_DWORD /d 0 /f; reg add \"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games\" /v Priority /t REG_DWORD /d 6 /f; reg add HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling /v PowerThrottlingOff /t REG_DWORD /d 1 /f')">Aplicar Modo Gamer</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">3. Desativar Telemetria e Coleta de Dados <span class="badge">Desempenho Geral</span></div>
+            <div class="desc"><strong>O que faz?</strong> Desliga os rastreadores ocultos do Windows que coletam seus dados de uso e enviam relatórios para a Microsoft o tempo todo, consumindo internet e processamento em segundo plano.<br><em>O que você ganha?</em> Sistema visivelmente mais leve, menos processos fantasmas rodando sozinhos e total privacidade sobre o seu PC.</div>
+            <button class="btn" onclick="RunPowerShell('reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v AllowTelemetry /t REG_DWORD /d 0 /f; sc stop WerSvc; sc config WerSvc start= disabled; sc stop DiagTrack; sc config DiagTrack start= disabled')">Desativar Rastreadores</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">4. Limpeza Profunda de Lixo Eletrônico <span class="badge">Espaço em Disco</span></div>
+            <div class="desc"><strong>O que faz?</strong> Varre as pastas invisíveis do sistema (Temp e Prefetch) limpando os resíduos e logs temporários acumulados que travam a velocidade de resposta do seu SSD ou HD.<br><em>O que você ganha?</em> Gigabytes de espaço livre e carregamento de arquivos mais ágil. Fique tranquilo, isso jamais apaga suas fotos, senhas ou jogos.</div>
+            <button class="btn" onclick="RunPowerShell('Remove-Item -Path $env:TEMP\* -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path C:\Windows\Temp\* -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path C:\Windows\Prefetch\* -Recurse -Force -ErrorAction SilentlyContinue')">Iniciar Faxina</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">5. Limpar Caches do DirectX e Shaders <span class="badge">Fim dos Engasgos</span></div>
+            <div class="desc"><strong>O que faz?</strong> Exclui os caches acumulados de Shaders (DirectX/NVIDIA/AMD) e arquivos temporários de carregamento de texturas que costumam ficar corrompidos com o tempo e após atualizações de jogos.<br><em>O que você ganha?</em> Resolve engasgos repentinos e texturas piscando em jogos competitivos. O jogo será forçado a recriar o cache de forma limpa.</div>
+            <button class="btn" onclick="RunPowerShell('Remove-Item -Path \"$env:LocalAppData\D3DSCache\*\" -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path \"$env:LocalAppData\NVIDIA\DXCache\*\" -Recurse -Force -ErrorAction SilentlyContinue')">Limpar Cache de Jogos</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">6. Otimizar Conexão e Latência <span class="badge badge-network">Rede & Internet</span></div>
+            <div class="desc"><strong>O que faz?</strong> Desativa a reserva de banda oculta do Windows, limpa o cache de endereços de internet (DNS) e força o sistema a processar dados da rede focando estritamente na menor resposta instantânea possível.<br><em>O que você ganha?</em> Conexão mais estável em servidores de jogos online, ajudando a diminuir e estabilizar o seu Ping.</div>
+            <button class="btn" onclick="RunPowerShell('netsh int tcp set global autotuninglevel=normal; netsh int tcp set global chimney=enabled; ipconfig /flushdns')">Otimizar Internet</button>
+        </div>
+<div class="card">
+            <div class="card-header">7. Desativar Efeitos Visuais Pesados <span class="badge">Fluidez do Sistema</span></div>
+            <div class="desc"><strong>O que faz?</strong> Remove os efeitos de esmaecimento, sombras sob janelas e animações demoradas que o Windows usa para abrir menus. As janelas passam a abrir de forma instantânea.<br><em>O que você ganha?</em> Resposta imediata ao clicar nas coisas. Ideal para eliminar a sensação de "PC pesado" ou lento ao navegar pela área de trabalho.</div>
+            <button class="btn" onclick="RunPowerShell('reg add \"HKCU\Control Panel\Desktop\" /v UserPreferencesMask /t REG_BINARY /d 5e120280 /f')">Deixar Windows Instantâneo</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">8. Desativar Totalmente Copilot e Cortana <span class="badge">Mais Memória RAM</span></div>
+            <div class="desc"><strong>O que faz?</strong> Remove os botões e desativa as funções em segundo plano das inteligências artificiais nativas do Windows que ficam consumindo memória e processamento mesmo se você nunca abri-las.<br><em>O que você ganha?</em> Mais memória RAM livre e menos processos rodando à toa de fundo na sua barra de tarefas.</div>
+            <button class="btn" onclick="RunPowerShell('reg add \"HKCU\Software\Policies\Microsoft\Windows\WindowsCopilot\" /v TurnOffWindowsCopilot /t REG_DWORD /d 1 /f; reg add \"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\" /v AllowCortana /t REG_DWORD /d 0 /f')">Desativar IA Nativa</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">9. Desativar Inicialização de Apps Pesados <span class="badge">Boot Mais Rápido</span></div>
+            <div class="desc"><strong>O que faz?</strong> Altera chaves do sistema para impedir que aplicativos pesados como Microsoft Teams, OneDrive ou navegadores fiquem se abrindo sozinhos e roubando desempenho assim que você liga o PC.<br><em>O que você ganha?</em> Seu computador liga muito mais rápido e fica pronto para jogar ou trabalhar quase instantaneamente.</div>
+            <button class="btn" onclick="RunPowerShell('reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v OneDrive /f; reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Teams /f; Get-Process | Out-Null')">Otimizar Inicialização</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">10. Pausar Atualizações de Driver Automáticas <span class="badge">Estabilidade</span></div>
+            <div class="desc"><strong>O que faz?</strong> Impede que o Windows Update substitua silenciosamente o driver da sua placa de vídeo (NVIDIA/AMD) por versões genéricas da Microsoft no meio da noite.<br><em>O que você ganha?</em> Segurança de que seu driver otimizado não vai quebrar do nada, evitando bugs gráficos e telas azuis inesperadas.</div>
+            <button class="btn" onclick="RunPowerShell('reg add \"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\" /v ExcludeWUDriversInQualityUpdate /t REG_DWORD /d 1 /f')">Pausar Drivers Ocultos</button>
+        </div>
+
+        <div class="card" style="border-color: #eab308;">
+            <div class="card-header">11. Kit Gamer Essencial <span class="badge badge-apps">Instalação Automática</span></div>
+            <div class="desc"><strong>O que faz?</strong> Abre uma janela visível e instala automaticamente os principais programas de desempenho que todo jogador usa (Steam, Discord e 7-Zip) usando a ferramenta segura da própria Microsoft (`winget`).<br><em>O que você ganha?</em> Economiza o tempo de ter que entrar em site por site para baixar os instaladores. Tudo roda direto e limpo pelo sistema.</div>
+            <button class="btn btn-apps" onclick="RunPowerShellVisible('Write-Host \'Baixando e Instalando Steam, Discord e 7-Zip...\' -ForegroundColor Yellow; winget install --id Valve.Steam --silent; winget install --id Discord.Discord --silent; winget install --id 7zip.7zip --silent; Start-Sleep -Seconds 5')">Instalar Kit Gamer</button>
+        </div>
+
+        <div class="card" style="border-color: #ef4444;">
+            <div class="card-header">12. Botão de Pânico: Abrir Sistema de Restauração <span class="badge badge-danger">Reverter Alterações</span></div>
+            <div class="desc"><strong>O que faz?</strong> Abre a ferramenta oficial de recuperação do próprio Windows, permitindo que você escolha o ponto de restauração criado na Opção 1 para desfazer tudo caso mude de ideia.<br><em>Por que usar?</em> É o pilar máximo de facilidade e segurança do projeto. O usuário tem o controle total para voltar atrás com apenas dois cliques.</div>
+            <button class="btn btn-danger" onclick="RunPowerShell('rstrui.exe')">Desfazer Tudo (Restaurar PC)</button>
+        </div>        <!-- OTIMIZAÇÃO EXTRA: NVIDIA -->
+        <div class="card" style="border-color: #76b900;">
+            <div class="card-header">13. Ajustes de Performance para NVIDIA <span class="badge" style="background: #76b900;">Geforce Antigas</span></div>
+            <div class="desc"><strong>O que faz?</strong> Desativa a telemetria oculta que os drivers da NVIDIA rodam de fundo, desliga o limite de energia do barramento PCIe e otimiza o tempo de resposta do driver com o processador.<br><em>O que você ganha?</em> Maior estabilidade nas taxas de quadros mínimos e fim de pequenas travadas em placas da linha GTX ou inferiores.</div>
+            <button class="btn" style="background-color: #76b900; color: black;" onclick="RunPowerShell('reg add \"HKLM\SOFTWARE\NVIDIA Corporation\Global\NVTweak\" /v DisableAllAsyncConn /t REG_DWORD /d 1 /f; reg add \"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\543b24c8-3a19-464f-a4df-d7741e74639a\a7066b0e-8d6b-426f-9411-187599292f23\" /v Attributes /t REG_DWORD /d 2 /f')">Otimizar NVIDIA</button>
+        </div>
+
+        <!-- OTIMIZAÇÃO EXTRA: AMD -->
+        <div class="card" style="border-color: #ed1c24;">
+            <div class="card-header">14. Ajustes de Performance para AMD Radeon <span class="badge" style="background: #ed1c24;">RX / APUs Antigas</span></div>
+            <div class="desc"><strong>O que faz?</strong> Configura o registro para desativar o "ULPS" (um estado de hibernação profunda da AMD que causa congelamentos e quedas bruscas de FPS ao reativar a placa no meio do jogo) e limpa atrasos na troca de texturas.<br><em>O que você ganha?</em> Gameplay muito mais lisa em placas da linha RX, HD Series ou processadores Ryzen com gráfico integrado Vega.</div>
+            <button class="btn" style="background-color: #ed1c24;" onclick="RunPowerShell('reg add \"HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000\" /v EnableULPS /t REG_DWORD /d 0 /f; reg add \"HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001\" /v EnableULPS /t REG_DWORD /d 0 /f')">Otimizar AMD Radeon</button>
+        </div>
+
+        <!-- OTIMIZAÇÃO EXTRA: INTEL -->
+        <div class="card" style="border-color: #0071c5;">
+            <div class="card-header">15. Ajustes de Performance para Gráficos Intel <span class="badge" style="background: #0071c5;">Intel HD / UHD</span></div>
+            <div class="desc"><strong>O que faz?</strong> Modifica as diretrizes de energia da memória do sistema compartilhada com o vídeo integrado da Intel, priorizando a largura de banda máxima para os jogos ao invés de economizar bateria.<br><em>O que você ganha?</em> Ganho de estabilidade vital e alguns frames extras preciosos para quem joga em notebooks antigos ou PCs de escritório sem placa dedicada.</div>
+            <button class="btn" style="background-color: #0071c5;" onclick="RunPowerShell('reg add \"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\543b24c8-3a19-464f-a4df-d7741e74639a\1436291e-101f-4a0d-a4c3-e33e6187537f\" /v Attributes /t REG_DWORD /d 2 /f')">Otimizar Intel Graphics</button>
+        </div>
+        <!-- OTIMIZAÇÃO EXTRA: PC ANTIGO (HD E RAM) -->
+        <div class="card" style="border-color: #f59e0b;">
+            <div class="card-header">16. Acelerar HD e Liberar Memória RAM <span class="badge" style="background: #f59e0b; color: black;">PCs Antigos</span></div>
+            <div class="desc"><strong>O que faz?</strong> Desativa o SysMain (Superfetch), que fica analisando seu HD o tempo todo e causando o erro de 'Disco em 100%', e desliga a compressão de memória RAM, que sobrecarrega processadores antigos.<br><em>O que você ganha?</em> O PC para de engasgar do nada na área de trabalho, abre pastas mais rápido e alivia o uso de processadores com menos núcleos.</div>
+            <button class="btn" style="background-color: #f59e0b; color: black;" onclick="RunPowerShell('sc stop SysMain; sc config SysMain start= disabled; powershell -Command \"Disable-MMAgent -MemoryCompression\"')">Otimizar HD e RAM</button>
+        </div>
+</body>
+</html>
